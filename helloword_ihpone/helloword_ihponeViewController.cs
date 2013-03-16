@@ -8,6 +8,8 @@ namespace helloword_ihpone
 {
 	public partial class helloword_ihponeViewController : UIViewController
 	{
+		protected int _numberOfTimesClicked = 0;
+
 		public helloword_ihponeViewController () : base ("helloword_ihponeViewController", null)
 		{
 		}
@@ -25,6 +27,16 @@ namespace helloword_ihpone
 			base.ViewDidLoad ();
 			
 			// Perform any additional setup after loading the view, typically from a nib.
+			//--- wire up out click me button
+			this.btnClickMe.TouchUpInside += (sender, e) => {
+				this._numberOfTimesClicked++;
+				this.lblOutput.Text = "Clicked [" + this._numberOfTimesClicked.ToString() + "] times";
+			};
+		}
+
+		partial void actnButtonClick (NSObject sender)
+		{
+			this.lblOutput.Text = "Action button " + ((UIButton)sender).CurrentTitle + " clicked.";
 		}
 		
 		public override bool ShouldAutorotateToInterfaceOrientation (UIInterfaceOrientation toInterfaceOrientation)
